@@ -4,7 +4,7 @@
 
 # Project Creation Date
 
-# Project Background (including but not limited to: provide the project GitHub link, participation in other hackathons, application for Web3 Foundation Grant, received any funding?
+# Project Background
 
 # Problem to be Solved
 
