@@ -1,6 +1,8 @@
+"use server";
+
 import { JWTPayload, jwtVerify } from "jose";
 
-export function getJwtSecretKey() {
+export async function getJwtSecretKey() {
   const secret = process.env.NEXT_PUBLIC_JWT_SECRET_KEY;
 
   if (!secret) {

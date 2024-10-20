@@ -6,7 +6,7 @@ const { ApiPromise, WsProvider } = polkaapi;
 // Construct
 async function fun() {
     const wsProvider = new WsProvider('wss://rpc.polkadot.io');
-    // const api = await ApiPromise.create({ provider: wsProvider });
+    // const api = await ApiPromise.create({ providers: wsProvider });
 
     // // Do something
     // console.log(api.genesisHash.toHex());

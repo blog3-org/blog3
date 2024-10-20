@@ -1,5 +1,5 @@
-import { articleGetAll, IArticle } from '@/libs/db/dao/articleDAO';
-import { articleInsert, IInsertArticle } from '@/libs/db/dao/insertArticleDAO';
+import {articleBriefGetAll, IArticle} from '@/libs/db/dao/article/articleDAO';
+import { articleInsert, IArticleInsert } from '@/libs/db/dao/article/articleInsertDAO';
 import {
     connectDatabase,
 } from '@/libs/db/dbUtils';
@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
 
     try {
         client = await connectDatabase();
-    } catch (error) {
+    } catch {
         return NextResponse.json(
             { message: "Connecting to the database failed!" },
             {
@@ -19,14 +19,15 @@ export async function POST(request: NextRequest) {
             }
         );
     }
-    const tmp = await request.json();
+    const tmp:IArticleInsert = await request.json();
     console.log("tmp:", tmp)
     const {
-        author_id,
-        author_name,
-        article_name,
-        article_context,
+        author,
+        title,
+        content,
         is_request_pay,
+        create_date,
+        update_date,
     } = tmp;
 
     // 参数校验
@@ -47,34 +48,38 @@ export async function POST(request: NextRequest) {
     // }
 
     // 封装传输的数据
-    const insertArticle: IInsertArticle = {
-        author_id: author_id,
-        author_name: author_name,
-        article_name: article_name,
-        article_context: article_context,
-        is_request_pay: is_request_pay
+    const insertArticle: IArticleInsert = {
+        author: author,
+        title: title,
+        content: content,
+        is_request_pay: is_request_pay,
+        create_date:create_date,
+        update_date:update_date,
     };
 
     let result;
 
     try {
         result = await articleInsert(client, insertArticle);
-        // console.log("result:", result)
+        await client.close();
         const newArticle:IArticle= {
             _id: result.insertedId,
-            author_id: insertArticle.author_id,
-            author_name: insertArticle.author_name,
-            article_name: insertArticle.article_name,
-            article_context: insertArticle.article_context,
-            is_request_pay: insertArticle.is_request_pay
+            author: insertArticle.author,
+            title: insertArticle.title,
+            content: insertArticle.content,
+            is_request_pay: insertArticle.is_request_pay,
+            create_date: insertArticle.create_date,
+            update_date: insertArticle.update_date,
+
         };
         return NextResponse.json(
-            { message: "Added article.", comment: newArticle },
+            { message: "Added article.", article: newArticle },
             {
                 status: 201,
             }
         );
     } catch (error) {
+        await client.close();
         return NextResponse.json(
             { message: "Inserting article failed!" },
             {
@@ -85,12 +90,16 @@ export async function POST(request: NextRequest) {
 }
 
 /* 获取article方法 */
-export async function GET() {
+export async function GET(request: NextRequest) {
     let client;
+
+    console.log("cookies:", request.cookies)
+    const jwtToken = request.cookies.get("jwtToken")
+    console.log("jwtToken:", jwtToken)
 
     try {
         client = await connectDatabase();
-    } catch (error) {
+    } catch {
         return NextResponse.json(
             { message: "Connecting to the database failed!" },
             {
@@ -99,14 +108,17 @@ export async function GET() {
         );
     }
     try {
-        const articles = await articleGetAll(client);
+        const articleList = await articleBriefGetAll(client);
+        // console.log("api get brief articleList:", articleList)
+        await client.close();
         return NextResponse.json(
-            { articles: articles },
+            { articles: articleList },
             {
                 status: 200,
             }
         );
-    } catch (error) {
+    } catch {
+        await client.close();
         return NextResponse.json(
             { message: "Getting articles failed." },
             {

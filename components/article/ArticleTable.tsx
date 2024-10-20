@@ -1,7 +1,8 @@
-import { Space, Table, Tag } from 'antd';
-import type { TableProps } from 'antd';
+import {Space, Table} from 'antd';
+import type {TableProps} from 'antd';
 import Link from "next/link";
-import {IArticle} from "@/libs/db/dao/articleDAO";
+import {IArticle} from "@/libs/db/dao/article/articleDAO";
+import FollowAuthorButton from "@/components/author/FollowAuthorButton";
 
 interface DataType {
     id: string;
@@ -16,7 +17,12 @@ const columns: TableProps<DataType>['columns'] = [
         title: 'Author',
         dataIndex: 'author',
         key: 'author',
-        render: (text) => <a>{text}</a>,
+        render: (author, data) => (
+            <>
+                <p>{author}</p>
+                <FollowAuthorButton author={data.author}/>
+            </>
+        ),
     },
     {
         title: 'Title',
@@ -33,8 +39,8 @@ const columns: TableProps<DataType>['columns'] = [
         key: 'action',
         render: (_, record) => (
             <Space size="middle">
-                <Link href={"/article/view/"+record.id}>浏览</Link>
-                <Link href={"/article/edit/"+record.id}>编辑</Link>
+                <Link href={"/article/view/" + record.id}>浏览</Link>
+                <Link href={"/article/edit/" + record.id}>编辑</Link>
             </Space>
         ),
     },
@@ -44,21 +50,22 @@ interface ArticleTableProps {
     articleList: IArticle[],
 }
 
-export default function ArticleTable(props:ArticleTableProps) {
-    const data:DataType[] = [];
+export default function ArticleTable(props: ArticleTableProps) {
+    // 构建table的data
+    const data: DataType[] = [];
     props.articleList.map((article) => {
-        let preview=null;
-        if(article.article_context.length > 50) {
-            preview = article.article_context.substring(0, 50) + " ......"
+        let preview = null;
+        if (article.content.length > 50) {
+            preview = article.content.substring(0, 50) + " ......"
         } else {
-            preview = article.article_context
+            preview = article.content
         }
         data.push({
-            author: article.author_name,
+            author: article.author,
             id: article._id,
             preview: preview,
-            title: article.article_name
+            title: article.title,
         })
     });
-    return <Table<DataType> columns={columns} dataSource={data} />
+    return <Table<DataType> columns={columns} dataSource={data}/>
 }

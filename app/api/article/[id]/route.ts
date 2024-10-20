@@ -1,40 +1,39 @@
-import {articleGetOneById, IArticle} from "@/libs/db/dao/articleDAO";
+import {articleGetOneById} from "@/libs/db/dao/article/articleDAO";
 import {connectDatabase} from "@/libs/db/dbUtils";
 import {NextRequest, NextResponse} from "next/server";
-import {articleInsert, IInsertArticle} from "@/libs/db/dao/insertArticleDAO";
+import {articleUpdate, IArticleUpdate} from "@/libs/db/dao/article/articleUpdateDAO";
+import {verifyJwtToken} from "@/libs/auth";
 
-/* todo 更新article方法 */
-export async function POST(request: NextRequest) {
+/* 更新article方法 */
+export async function UPDATE(
+    request: NextRequest,
+    {params}: { params: { id: string } }
+) {
     let client;
 
     try {
         client = await connectDatabase();
     } catch (error) {
         return NextResponse.json(
-            { message: "Connecting to the database failed!" },
+            {message: "Connecting to the database failed!"},
             {
                 status: 500,
             }
         );
     }
-    const article:IInsertArticle = await request.json();
+    const article: IArticleUpdate = await request.json();
     const {
-        author_id,
-        author_name,
-        article_name,
-        article_context,
-        is_request_pay,
+        id,
+        title,
+        content,
+        update_date
     } = article;
 
-    // 参数校验
-    // if (
-    //     !email.includes("@") ||
-    //     !name ||
-    //     name.trim() === "" ||
-    //     !text ||
-    //     text.trim() === ""
-    // ) {
-    //     client.close();
+    // todo 参数校验&鉴权
+    // console.log("id:", id)
+    // console.log("params.id:", params.id)
+    // if(id != params.id) {
+    //     await client.close();
     //     return NextResponse.json(
     //         { message: "Invalid input." },
     //         {
@@ -44,36 +43,32 @@ export async function POST(request: NextRequest) {
     // }
 
     // 封装传输的数据
-    const insertArticle: IInsertArticle = {
-        author_id: author_id,
-        author_name: author_name,
-        article_name: article_name,
-        article_context: article_context,
-        is_request_pay: is_request_pay
+    const updateArticle: IArticleUpdate = {
+        id: id,
+        title: title,
+        content: content,
+        update_date: update_date,
     };
 
     let result;
 
     try {
-        result = await articleInsert(client, insertArticle);
-        // console.log("result:", result)
-        const newArticle:IArticle= {
-            _id: result.insertedId,
-            author_id: insertArticle.author_id,
-            author_name: insertArticle.author_name,
-            article_name: insertArticle.article_name,
-            article_context: insertArticle.article_context,
-            is_request_pay: insertArticle.is_request_pay
-        };
+        result = await articleUpdate(client, updateArticle);
+        await client.close();
         return NextResponse.json(
-            { message: "Added article.", comment: newArticle },
+            {
+                message: "Updated article.",
+                update_article: updateArticle,
+                update_result: result,
+            },
             {
                 status: 201,
             }
         );
-    } catch (error) {
+    } catch {
+        await client.close();
         return NextResponse.json(
-            { message: "Inserting article failed!" },
+            {message: "Inserting article failed!"},
             {
                 status: 500,
             }
@@ -82,35 +77,44 @@ export async function POST(request: NextRequest) {
 }
 
 /* 获取article方法 */
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, {params}: { params: { id: string } }) {
     const articleId = params.id
-
-    console.log("/api/articles/" + articleId);
 
     let client;
     try {
         client = await connectDatabase();
-    } catch (error) {
+    } catch {
         return NextResponse.json(
-            { message: "Connecting to the database failed!" },
+            {message: "Connecting to the database failed!"},
             {
                 status: 500,
             }
         );
     }
+
+    // 鉴权&&参数校验
+    console.log("request:", request)
+    console.log("cookie:", request.cookies)
+
+    // const req:IRequestGet = await request.json();
+    // const {jwtToken} = req;
+    // const payload = await verifyJwtToken(jwtToken);
+    // console.log("payload:", payload);
+
     try {
         const article = await articleGetOneById(client, articleId);
+        await client.close();
         return NextResponse.json(
-            { article: article },
+            {article: article},
             {
                 status: 200,
             }
         );
-    } catch (error) {
+    } catch {
+        await client.close();
         return NextResponse.json(
             {
                 message: "Getting articles failed.",
-                error:error
             },
             {
                 status: 500,

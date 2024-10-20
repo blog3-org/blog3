@@ -1,14 +1,21 @@
 "use client";
 
-import SigninButton from "@/components/signin/SigninButton"
-import { useState } from "react";
+import SignInButton from "@/components/signin/SignInButton"
 import SigninInfo from "./SigninInfo";
+import {useContext} from "react";
+import LogOutButton from "@/components/signin/LogOutButton";
+import {SignContext} from "@/providers/SignProvider";
 
-export default function Signin() {
-  const [isSignin, setIsSignIn] = useState(false);
-  if (isSignin) {
-    return <SigninInfo />
-  } else {
-    return <SigninButton setIsSignIn={setIsSignIn} />
-  }
+export default function SignIn() {
+    const {isSignIn, address} = useContext(SignContext);
+    if (isSignIn) {
+        return (
+            <>
+                <LogOutButton/>
+                <SigninInfo address={address}/>
+            </>
+        )
+    } else {
+        return <SignInButton/>
+    }
 }

@@ -1,37 +1,47 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Flex } from 'antd';
+import React, { useState, useEffect } from "react";
+import {Button} from 'antd';
 import ArticleTable from "@/components/article/ArticleTable";
-import ArticleCard from "@/components/article/ArticleCard";
+import ArticleCardList from "@/components/article/ArticleCardList";
 
 export default function Page() {
-  const [articles, setarticles] = useState([]);
+  const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchLatestArticle = () => {
     fetch("/api/article/")
       .then((response) => response.json())
       .then((data) => {
+          // console.log("data:", data)
         setIsLoading(false);
-        setarticles(data.articles);
+        setArticles(data.articles);
       });
   };
 
   useEffect(() => {
     fetchLatestArticle();
-  }, [])
 
-  return (
-      <>
-          <Flex wrap gap="small">
-          {
-              articles.map((article) => (
-                  <ArticleCard article={article}/>
-              ))
-          }
-          </Flex>
-          <p><ArticleTable articleList={articles}/></p>
-      </>
-  );
+  }, []);
+
+  if (isLoading) {
+      return (
+          <>
+              Loading
+          </>
+      );
+  }else {
+      // return (
+      //     <Button type="primary" onClick={() => {
+      //         console.log("articles:", articles)
+      //     }}>Test</Button>
+      // )
+      return (
+          <>
+              <Button type="primary" href="/article/edit">New Article</Button>
+              <ArticleCardList articles={articles}/>
+              <ArticleTable articleList={articles}/>
+          </>
+      );
+  }
 }

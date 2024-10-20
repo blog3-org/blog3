@@ -1,46 +1,46 @@
 'use client';
 
-import React from "react";
+import React, {useContext, useState} from "react";
 import MDEditor from '@uiw/react-md-editor';
-import { IArticle } from "@/libs/db/dao/articleDAO";
-import cookie from 'react-cookies';
-import { Button } from "antd";
+import {IArticle} from "@/libs/db/dao/article/articleDAO";
+import {Button, message, Input} from "antd";
+import {IArticleUpdate} from "@/libs/db/dao/article/articleUpdateDAO";
+import {IArticleInsert} from "@/libs/db/dao/article/articleInsertDAO";
+import {SignContext} from "@/providers/SignProvider";
 
 interface IArticleEditorProps {
-    // isCreate: boolean, // 是否是新建的博文
-    title?:string,
-    value?:string,
+    isCreate: boolean, // 是否是新建的博文
+    article?: IArticle
 }
 
-export default function ArticleEditor(props:IArticleEditorProps) {
-    const [title, setTitle] = React.useState("");
-    const [value, setValue] = React.useState("");
-    if(props.title) {
-        setTitle(props.title);
-    }
-    if(props.value){
-        setValue(props.value);
-    }
+export default function ArticleEditor(props: IArticleEditorProps) {
+    const [title, setTitle] = useState(props.article ? props.article.title : "New Article");
+    const [value, setValue] = useState(props.article ? props.article.content : "# New Article\n## Content");
+    const articleId = props.article ? props.article._id.toString() : "undefined";
+    const [messageApi, contextHolder] = message.useMessage();
+    const {address} = useContext(SignContext);
+    const {isCreate} = props;
 
-    const uploadHandler = () => {
-        let address:string = "";
-        // let signature:string = ""
-        const tmp = cookie.load("SigninInfo");
-        if (tmp) {
-            address = tmp.address;
-            // signature = tmp.signature;
-        }
-        const article: IArticle = {
-            _id: undefined,
-            author_id: "1",
-            author_name: address,
-            article_name: title,
-            article_context: value,
+    const success = () => {
+        messageApi.open({
+            type: 'success',
+            content: 'Upload Success',
+        });
+    };
+
+    const createHandler = () => {
+        const articleInsert: IArticleInsert = {
+            author: address,
+            title: title,
+            content: value,
             is_request_pay: false,
+            create_date: new Date(),
+            update_date: new Date(),
         };
+        console.log("articleInsert:", articleInsert)
         fetch("/api/article/", {
             method: "POST",
-            body: JSON.stringify(article),
+            body: JSON.stringify(articleInsert),
             headers: {
                 "Content-Type": "application/json",
             },
@@ -48,17 +48,49 @@ export default function ArticleEditor(props:IArticleEditorProps) {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
+                success()
             });
-    };
+    }
+    const updateHandler = () => {
+        const {article} = props;
+        const updateArticle: IArticleUpdate = {
+            content: value,
+            title: title,
+            id: article?._id,
+            update_date: new Date(),
+        }
+        fetch("/api/article/" + updateArticle.id, {
+            method: "UPDATE",
+            body: JSON.stringify(updateArticle),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                success()
+            });
+    }
+    const uploadHandler = isCreate ? createHandler : updateHandler;
 
     return (
-        <div className="container">
-            <MDEditor
-                value={value}
-                onChange={setValue}
-            />
-            <MDEditor.Markdown source={value} style={{ whiteSpace: 'pre-wrap' }} />
-            <Button type="primary" onClick={uploadHandler}>上传</Button>
-        </div>
+        <>
+            {contextHolder}
+            <div className="container">
+                <div>Article Id: {articleId}</div>
+                {/*<div>Article Title: {title}</div>*/}
+                <Input placeholder="Title" value={title} onChange={(e) => {
+                    setTitle(e.target.value)
+                }}/>
+                <MDEditor
+                    value={value}
+                    onChange={(e) => {
+                        setValue(e ? e : "")
+                    }}
+                />
+                <Button type="primary" onClick={uploadHandler}>上传</Button>
+            </div>
+        </>
     );
 }
