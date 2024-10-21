@@ -1,5 +1,5 @@
 # blog3
-
+Bonding Curve with Ads, Revenue Sharing
 # Project Name
 
 # Project Creation Date
