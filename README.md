@@ -50,7 +50,7 @@ Blog3 here to revolution the content platform
 
 ## Team Information
 
-| name         | role         | 
+| Name         | Role         | 
 | ----------- | ----------- |
 | Xin       | Full Stack Engineer |
 | Frank         | Product Manager | 
