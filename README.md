@@ -85,14 +85,6 @@ Bounty:
 - Moonbeam
 
 
-## Selected Category & Bounty
-
-Category: Open Topic
-
-Bounties:
-- CESS Network
-- Moonbeam
-
 ## Planned and Completed Code Deliverables during the Hackathon
 
 ### Basic Features
