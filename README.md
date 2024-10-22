@@ -1,11 +1,10 @@
 
-
 ## Blog3
 Blog3 is blog platfrom for Web3, that's the name come from. But Blog is not limited in blog, it could the next generation content sharing platform, which aims give back the ownership to both author and readers, covering blog, novel, and any other digital contents form. 
 
 Since 2024/09/01
 
-## Project Background
+## Background
 
 In the current market, there are typical traditional blog platform e.g Medium and crypto blog platform e.g. Mirror. 
 
@@ -27,12 +26,15 @@ As mentioned above, there are lots of issues need to be resolved.
 
 Blog3 here to revolution the content platform
 
-1. **Give back the ownership**: we would give back the ownership to content creator, and 
-2. **Sharing the broad revenue**: we pre-set the bonding curve to make sure the sharing between both content creator and platform
-3. **Contribution means ownership**: we regard readers' tip to content as the contribution, and 
+1. **Give back the ownership**: we would give back the ownership to content creator, and under subsription mode, only creator could subsribed readers and creator could see the content. Management of the storage is also under creators.
+2. **Sharing the broad revenue**: we pre-set the bonding curve to make sure the sharing percentage between both content creator and platform is settled, and ensure creator could get most of the reveune they deserved. 
+3. **Contribution means ownership**: we regard readers' tip to content as the contribution, and let readers share the revenue from the content as well once the tip hit the bonding curve. 
 
 
 ## Project Demonstration
+
+Basic Features: we would support article publishment, subscription, and tip these basic functions, which similar as other blog platform.
+
 
 
 ## Technical Architecture
@@ -61,6 +63,23 @@ Creator
 
 Reader 
 - [ ] Tipping
+
+- Login and Logout: Subwallet and Talisman login
+- Author
+-   Markdown 
+-   Upload to IPFS
+-   Image support: Support Ctrl + V to paste images, upload to image hosting
+-   Save function: Save offline, support continuing editing after closing and reopening
+-   My article list: Display titles and writing times of my articles, click to jump to article links
+-   My draft list: Display titles and writing times of my drafts, click to jump to draft links, continue editing
+-   My followers list: Display all addresses following me and payment amounts
+-   Set reading permissions: Set reading threshold to pay 1 DOT / 5 DOT / custom input; set free reading portion
+-   Set and modify payment address
+- Reader
+-   My following list: View users I follow
+-   Read a markdown article: Information includes article author and time, can follow the author
+-   Judge reading permissions: Can only read free portion, remaining content requires payment, display payment button
+-   Make payment: According to preset amount, invoke wallet for payment, after on-chain, refresh page to read
 
 
 ## Project Completed During the Hackathon
