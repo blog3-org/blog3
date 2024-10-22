@@ -24,6 +24,8 @@ export async function POST(request: NextRequest) {
     const {
         author,
         title,
+        abstract,
+        cover_url,
         content,
         is_request_pay,
         create_date,
@@ -51,6 +53,8 @@ export async function POST(request: NextRequest) {
     const insertArticle: IArticleInsert = {
         author: author,
         title: title,
+        abstract: abstract,
+        cover_url: cover_url,
         content: content,
         is_request_pay: is_request_pay,
         create_date:create_date,
@@ -65,11 +69,13 @@ export async function POST(request: NextRequest) {
         const newArticle:IArticle= {
             _id: result.insertedId,
             author: insertArticle.author,
+            abstract: insertArticle.abstract,
+            cover_url: insertArticle.cover_url,
             title: insertArticle.title,
             content: insertArticle.content,
             is_request_pay: insertArticle.is_request_pay,
             create_date: insertArticle.create_date,
-            update_date: insertArticle.update_date,
+            update_date: insertArticle.update_date
 
         };
         return NextResponse.json(
@@ -78,7 +84,7 @@ export async function POST(request: NextRequest) {
                 status: 201,
             }
         );
-    } catch (error) {
+    } catch  {
         await client.close();
         return NextResponse.json(
             { message: "Inserting article failed!" },
@@ -93,9 +99,9 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
     let client;
 
-    console.log("cookies:", request.cookies)
+    // console.log("cookies:", request.cookies)
     const jwtToken = request.cookies.get("jwtToken")
-    console.log("jwtToken:", jwtToken)
+    // console.log("jwtToken:", jwtToken)
 
     try {
         client = await connectDatabase();

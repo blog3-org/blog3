@@ -4,7 +4,7 @@ import {getAllDocuments, getDocumentByFilter} from "../../dbUtils";
 const collection_name = "follow";
 
 export interface IFollow {
-    _id: ObjectId | undefined,
+    _id: ObjectId,
     author:string,    // 被关注者地址
     fans:string,    // 粉丝地址
     create_date: Date,
@@ -21,7 +21,7 @@ export async function followGetByAuthor(
     client: MongoClient,
     author: string,
 ) {
-    const filter:Filter = {author:author};
+    const filter:Filter<IFollow> = {author:author};
     return await getDocumentByFilter(client, collection_name, filter, {_id: -1});
 }
 
@@ -30,7 +30,7 @@ export async function followGetByFan(
     client: MongoClient,
     fan: string,
 ) {
-    const filter:Filter = {fans:fan};
+    const filter:Filter<IFollow> = {fans:fan};
     return await getDocumentByFilter(client, collection_name, filter, {_id: -1})
 }
 // todo 取关功能

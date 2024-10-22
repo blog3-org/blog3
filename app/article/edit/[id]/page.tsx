@@ -2,6 +2,7 @@
 
 import {useEffect, useState} from "react";
 import ArticleEditor from "@/components/article/ArticleEditor";
+import {Spinner} from "@nextui-org/spinner";
 
 export default function Page({ params }: { params: { id: string } }) {
     const [article, setArticle] = useState(undefined);
@@ -25,7 +26,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
     if(isLoading){
         return (
-            <p>Loading</p>
+            <Spinner label="Loading..."/>
         )
     } else {
         return (

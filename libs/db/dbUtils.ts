@@ -1,4 +1,4 @@
-import {Filter, MongoClient, ObjectId, Sort} from "mongodb";
+import {Filter, MongoClient, Sort} from "mongodb";
 
 // 连接MongoDB数据库
 export async function connectDatabase() {
@@ -51,6 +51,16 @@ export async function getDocumentById(
     return await db.collection(collection).find({id: id}).sort(sort).toArray();
 }
 
+export async function getOneDocumentById(
+    client: MongoClient,
+    collection: string,
+    id: string
+) {
+    const db = client.db('blog3');
+
+    return await db.collection(collection).findOne({id: id});
+}
+
 // 查询名为comments的collection中所有数据
 export async function getDocumentByFilter(
     client: MongoClient,
@@ -64,12 +74,12 @@ export async function getDocumentByFilter(
 }
 
 // 查询名为comments的collection中所有数据
-export async function getOneDocumentById(
+export async function getOneDocumentByFilter(
     client: MongoClient,
     collection: string,
-    id: string
+    filter: Filter<any>,
 ) {
     const db = client.db('blog3');
 
-    return await db.collection(collection).findOne({_id: new ObjectId(id)});
+    return await db.collection(collection).findOne(filter);
 }

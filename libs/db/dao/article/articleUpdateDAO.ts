@@ -5,6 +5,8 @@ const collection_name = "article";
 export interface IArticleUpdate {
     id: string,
     title: string,
+    abstract: string,
+    cover_url: string,
     content: string,
     update_date: Date,
 }

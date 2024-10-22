@@ -1,9 +1,9 @@
 "use client";
 
-import React, {useState, useEffect} from "react";
-import {Button} from 'antd';
+import {useState, useEffect} from "react";
 import ArticleTable from "@/components/article/ArticleTable";
-import ArticleCardList from "@/components/article/ArticleCardList";
+import {Spinner} from "@nextui-org/spinner";
+import {Button} from "@nextui-org/react";
 
 export default function FollowArticleTable() {
     const [articles, setArticles] = useState([]);
@@ -26,13 +26,8 @@ export default function FollowArticleTable() {
 
     return (
         <>
-            {isLoading ? <p>Loading</p>
-                :
-                <>
-                    <p><ArticleTable articleList={articles}/></p>
-                </>
-            }
+            <Button onPress={fetchFollowArticle}>Refresh</Button>
+            {isLoading ? <Spinner label="Loading..."/>:<ArticleTable articleList={articles}/>}
         </>
-
     )
 }

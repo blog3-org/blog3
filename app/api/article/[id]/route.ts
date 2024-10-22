@@ -2,18 +2,16 @@ import {articleGetOneById} from "@/libs/db/dao/article/articleDAO";
 import {connectDatabase} from "@/libs/db/dbUtils";
 import {NextRequest, NextResponse} from "next/server";
 import {articleUpdate, IArticleUpdate} from "@/libs/db/dao/article/articleUpdateDAO";
-import {verifyJwtToken} from "@/libs/auth";
 
 /* 更新article方法 */
 export async function UPDATE(
-    request: NextRequest,
-    {params}: { params: { id: string } }
+    request: NextRequest
 ) {
     let client;
 
     try {
         client = await connectDatabase();
-    } catch (error) {
+    } catch {
         return NextResponse.json(
             {message: "Connecting to the database failed!"},
             {
@@ -25,6 +23,8 @@ export async function UPDATE(
     const {
         id,
         title,
+        abstract,
+        cover_url,
         content,
         update_date
     } = article;
@@ -46,6 +46,8 @@ export async function UPDATE(
     const updateArticle: IArticleUpdate = {
         id: id,
         title: title,
+        abstract:abstract,
+        cover_url:cover_url,
         content: content,
         update_date: update_date,
     };

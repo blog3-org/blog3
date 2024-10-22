@@ -1,23 +1,26 @@
 "use client";
 
 import {JwtProvider} from "@/providers/JwtProvider";
-import {SignProvider} from "@/providers/SignProvider";
+import {UserProvider} from "@/providers/UserProvider";
 import {FollowProvider} from "@/providers/FollowProvider";
 import {PayProvider} from "@/providers/PayProvider";
+import {NextUIProvider} from "@nextui-org/react";
 
 export function Provider({children}: {
     children: React.ReactNode
-}){
+}) {
 
-    return(
-        <JwtProvider>
-            <SignProvider>
-                <FollowProvider>
-                    <PayProvider>
-                        {children}
-                    </PayProvider>
-                </FollowProvider>
-            </SignProvider>
-        </JwtProvider>
+    return (
+        <NextUIProvider>
+            <JwtProvider>
+                <UserProvider>
+                    <FollowProvider>
+                        <PayProvider>
+                            {children}
+                        </PayProvider>
+                    </FollowProvider>
+                </UserProvider>
+            </JwtProvider>
+        </NextUIProvider>
     )
 }

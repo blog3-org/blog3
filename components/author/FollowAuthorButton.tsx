@@ -1,35 +1,35 @@
 "use client";
 
 import {useContext, useEffect, useState} from "react";
-import { Button } from "antd";
+import {Button, Popover, PopoverContent, PopoverTrigger} from "@nextui-org/react";
 import {IFollowInsert} from "@/libs/db/dao/follow/followInsertDao";
 import {FollowContext, IFollowProvider} from "@/providers/FollowProvider";
-import {SignContext} from "@/providers/SignProvider";
+import {UserContext} from "@/providers/UserProvider";
 import {updateFollowList} from "@/libs/follow/follow";
 
 interface IArticleEditorProps {
     author: string,
 }
 
-export default function FollowAuthorButton(props:IArticleEditorProps) {
-    const [disabled, setDisabled] = useState(true)
+export default function FollowAuthorButton(props: IArticleEditorProps) {
+    const [isDisabled, setIsDisabled] = useState(true)
     const {followList, setFollowList} = useContext<IFollowProvider>(FollowContext);
-    const {address, isSignIn} = useContext(SignContext);
+    const {address, isConnect} = useContext(UserContext);
 
     const handler = () => {
         // console.log("address:",address)
         // console.log("followList:",followList)
         // console.log("props.author:",props.author)
-        if(!isSignIn) {
-            setDisabled(true)
+        if (!isConnect) {
+            setIsDisabled(true)
         } else {
-            setDisabled(followList.indexOf(props.author) != -1)
+            setIsDisabled(followList.indexOf(props.author) != -1)
         }
     }
 
-    useEffect(() =>{
+    useEffect(() => {
         handler()
-    }, [address, isSignIn, followList])
+    }, [address, isConnect, followList])
 
     const onClick = async () => {
         const followInsert: IFollowInsert = {
@@ -54,6 +54,16 @@ export default function FollowAuthorButton(props:IArticleEditorProps) {
             });
     }
     return (
-        <Button type="primary" disabled={disabled} onClick={onClick}>关注</Button>
+        <Popover placement="right">
+            <PopoverTrigger>
+                <Button color="primary" isDisabled={isDisabled} onPress={onClick}>Follow</Button>
+            </PopoverTrigger>
+            <PopoverContent>
+                <div className="px-1 py-2">
+                    <div className="text-small font-bold">Popover Content</div>
+                    <div className="text-tiny">This is the popover content</div>
+                </div>
+            </PopoverContent>
+        </Popover>
     );
 }

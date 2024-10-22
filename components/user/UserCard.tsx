@@ -1,34 +1,26 @@
-import { Card } from 'antd';
-import {IArticle} from "@/libs/db/dao/article/articleDAO";
-import Link from "next/link";
-const { Meta } = Card;
+import {User} from "@nextui-org/react";
+import {default_avatar_url, IUser} from "@/libs/db/dao/user/userDao";
+import {shortAddress} from "@/libs/helper";
 
-
-interface ArticleCardProps {
-    article: IArticle,
-    img_url?: string,
+export interface IUserCardProps {
+    user: IUser,
 }
 
-const defaultImgUrl = "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png";
-
-export default function ArticleCard(props:ArticleCardProps) {
-    const imgUrl = props.img_url? props.img_url : defaultImgUrl;
-    let preview=null;
-    if(props.article.content.length > 50) {
-        preview = props.article.content.substring(0, 50) + " ......"
-    } else {
-        preview = props.article.content
-    }
+export default function UserCard(props: IUserCardProps): JSX.Element {
+    const {name, address, avatar_url} = props.user;
+    const title = name?name:shortAddress(address as `0x${string}`)
+    const url = avatar_url?avatar_url:default_avatar_url;
     return (
-        <Link href={"/article/view/"+props.article._id}>
-            <Card
-                hoverable
-                style={{ width: 240 }}
-                cover={ <img alt={props.article.title} src={imgUrl} />}
-            >
-                <Meta title={props.article.title} description={preview} />
-            </Card>
-        </Link>
+        <div className="flex flex-grow gap-2 items-center">
+            <User
+                className="text-white"
+                name="Author"
+                description={props.user.name}
+                avatarProps={{
+                    src: url
+                }}
+                title={title}
+            />
+        </div>
     )
-
 }

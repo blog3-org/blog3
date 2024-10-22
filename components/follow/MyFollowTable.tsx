@@ -1,87 +1,112 @@
 "use client";
 
-import {Button, message, Table, type TableProps} from 'antd';
-import React, {useContext, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import {FollowContext, IFollowProvider} from "@/providers/FollowProvider";
-import {ISignProvider, SignContext} from "@/providers/SignProvider";
-import {IPayInsert} from "@/libs/db/dao/pay/payInsertDao";
+import {
+    Table,
+    TableHeader,
+    TableColumn,
+    TableBody,
+    TableRow,
+    TableCell,
+} from "@nextui-org/react";
+import FollowAuthorButton from "@/components/author/FollowAuthorButton";
 
-interface DataType {
-    follow: string,
-    address: string,
-    success: () => void,
+type DataType = {
+    follow: string;
 }
 
-
-const columns: TableProps<DataType>['columns'] = [
-    {
-        title: 'Follow',
-        dataIndex: 'follow',
-        key: 'follow',
-    },
-    {
-        title: 'Pay',
-        dataIndex: 'pay',
-        key: 'pay',
-        render: (_, record) => {
-            const onClick = () => {
-                const receiver = record.follow;
-                const address = record.address;
-                const success = record.success;
-                const payInsertData: IPayInsert = {
-                    amount: 10,
-                    create_date: new Date(),
-                    payer: address,
-                    receiver: receiver
-                }
-                console.log("payInsertData:", payInsertData)
-                fetch("/api/pay/", {
-                    method: "POST",
-                    body: JSON.stringify(payInsertData),
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                })
-                    .then((response) => response.json())
-                    .then(async (data) => {
-                        console.log("payInsert success:", data.follow)
-                        success()
-                    });
-            }
-            return <Button onClick={onClick}>Pay</Button>
-        }
-    }
+const columns = [
+    {name: "Author", uid: "author"},
+    {name: "Follow", uid: "follow"},
 ];
+
+// const columns: TableProps<DataType>['columns'] = [
+//     {
+//         title: 'Follow',
+//         dataIndex: 'follow',
+//         key: 'follow',
+//     },
+//     {
+//         title: 'Pay',
+//         dataIndex: 'pay',
+//         key: 'pay',
+//         render: (_, record) => {
+//             const onClick = () => {
+//                 const receiver = record.follow;
+//                 const address = record.address;
+//                 const success = record.success;
+//                 const payInsertData: IPayInsert = {
+//                     amount: 10,
+//                     create_date: new Date(),
+//                     payer: address,
+//                     receiver: receiver
+//                 }
+//                 console.log("payInsertData:", payInsertData)
+//                 fetch("/api/pay/", {
+//                     method: "POST",
+//                     body: JSON.stringify(payInsertData),
+//                     headers: {
+//                         "Content-Type": "application/json",
+//                     },
+//                 })
+//                     .then((response) => response.json())
+//                     .then(async (data) => {
+//                         console.log("payInsert success:", data.follow)
+//                         success()
+//                     });
+//             }
+//             return <Button onPress={onClick}>Pay</Button>
+//         }
+//     }
+// ];
 
 export default function MyFollowTable() {
     const {followList} = useContext<IFollowProvider>(FollowContext);
-    const {address} = useContext<ISignProvider>(SignContext);
     const [data, setData] = useState<DataType[]>([])
-    const [messageApi, contextHolder] = message.useMessage();
-
-    const success = () => {
-        messageApi.open({
-            type: 'success',
-            content: 'Pay Success',
-        });
-    };
 
     useEffect(() => {
         const tmpData: DataType[] = [];
         followList.map((follow) => {
             tmpData.push({
                 follow: follow,
-                address: address,
-                success: success,
             })
         });
         setData(tmpData)
     }, [followList]);
 
+    const renderCell = useCallback((follow: DataType, columnKey: React.Key) => {
+        const author = follow.follow;
+        switch (columnKey) {
+            case "author":
+                return (
+                    <p className="text-tiny text-white/60 uppercase font-bold">{author}</p>
+                );
+            case "follow":
+                return (
+                    <FollowAuthorButton author={author}/>
+                );
+            default:
+                return <p className="text-tiny text-white/60 uppercase font-bold">Wrong columnKey</p>;
+        }
+    }, []);
+
     return (
-        <>
-            {contextHolder}
-            <Table<DataType> columns={columns} dataSource={data}/>
-        </>
+        <Table aria-label="Example table with custom cells">
+            <TableHeader columns={columns}>
+                {(column) => (
+                    <TableColumn key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
+                        {column.name}
+                    </TableColumn>
+                )}
+            </TableHeader>
+            <TableBody items={data}>
+                {(follow: DataType) => (
+                    <TableRow key={follow.follow}>
+                        {(columnKey) => <TableCell>{renderCell(follow, columnKey)}</TableCell>}
+                    </TableRow>
+                )}
+            </TableBody>
+        </Table>
     )
 }

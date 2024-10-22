@@ -1,20 +1,22 @@
 "use client";
 
-import {Table, type TableProps} from 'antd';
-import React, {useContext, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import {FollowContext, IFollowProvider} from "@/providers/FollowProvider";
+import {
+    Table,
+    TableHeader,
+    TableColumn,
+    TableBody,
+    TableRow,
+    TableCell,
+} from "@nextui-org/react";
 
-interface DataType {
+type DataType = {
     fans: string;
 }
 
-
-const columns: TableProps<DataType>['columns'] = [
-    {
-        title: 'Fan',
-        dataIndex: 'fans',
-        key: 'fans',
-    },
+const columns = [
+    {name: "Fans", uid: "fans"},
 ];
 
 export default function MyFanTable() {
@@ -31,5 +33,34 @@ export default function MyFanTable() {
         setData(tmpData)
     }, [fanList]);
 
-    return <Table<DataType> columns={columns} dataSource={data}/>
+    const renderCell = useCallback((fan: DataType, columnKey: React.Key) => {
+        const {fans} = fan;
+        switch (columnKey) {
+            case "fans":
+                return (
+                    <p className="text-tiny text-white/60 uppercase font-bold">{fans}</p>
+                );
+            default:
+                return <p className="text-tiny text-white/60 uppercase font-bold">Wrong columnKey</p>;
+        }
+    }, []);
+
+    return (
+        <Table aria-label="Example table with custom cells">
+            <TableHeader columns={columns}>
+                {(column) => (
+                    <TableColumn key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
+                        {column.name}
+                    </TableColumn>
+                )}
+            </TableHeader>
+            <TableBody items={data}>
+                {(fan: DataType) => (
+                    <TableRow key={fan.fans}>
+                        {(columnKey) => <TableCell>{renderCell(fan, columnKey)}</TableCell>}
+                    </TableRow>
+                )}
+            </TableBody>
+        </Table>
+    );
 }

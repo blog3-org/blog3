@@ -3,39 +3,56 @@
 import React, {useContext, useState} from "react";
 import MDEditor from '@uiw/react-md-editor';
 import {IArticle} from "@/libs/db/dao/article/articleDAO";
-import {Button, message, Input} from "antd";
+import {Button, Input} from "@nextui-org/react";
 import {IArticleUpdate} from "@/libs/db/dao/article/articleUpdateDAO";
 import {IArticleInsert} from "@/libs/db/dao/article/articleInsertDAO";
-import {SignContext} from "@/providers/SignProvider";
+import {UserContext} from "@/providers/UserProvider";
+import toast from "react-hot-toast";
+import {Date} from "@polkadot/types-codec";
 
 interface IArticleEditorProps {
     isCreate: boolean, // 是否是新建的博文
     article?: IArticle
 }
 
+const DEFAULT_COVER_URL_LIST = [""];
+const DEFAULT_COVER_AVATAR_LIST = [""];
+
+const pickRandom = (list: string[]) => {
+    return list[Math.floor((Math.random() * list.length))]
+}
+
 export default function ArticleEditor(props: IArticleEditorProps) {
     const [title, setTitle] = useState(props.article ? props.article.title : "New Article");
-    const [value, setValue] = useState(props.article ? props.article.content : "# New Article\n## Content");
+    const [content, setContent] = useState(props.article ? props.article.content : "# New Article\n## Content");
+    const [abstract, setAbstract] = useState(
+        props.article ?
+            props.article.abstract :
+            pickRandom(DEFAULT_COVER_AVATAR_LIST)
+    );
+    const [coverUrl, setCoverUrl] = useState(
+        props.article ?
+            props.article.cover_url :
+            pickRandom(DEFAULT_COVER_URL_LIST)
+    );
     const articleId = props.article ? props.article._id.toString() : "undefined";
-    const [messageApi, contextHolder] = message.useMessage();
-    const {address} = useContext(SignContext);
+    const {address} = useContext(UserContext);
     const {isCreate} = props;
 
-    const success = () => {
-        messageApi.open({
-            type: 'success',
-            content: 'Upload Success',
-        });
+    const successHandler = () => {
+        toast.success('Submit Success!')
     };
 
     const createHandler = () => {
         const articleInsert: IArticleInsert = {
             author: address,
             title: title,
-            content: value,
+            abstract: abstract,
+            cover_url: coverUrl,
+            content: content,
             is_request_pay: false,
             create_date: new Date(),
-            update_date: new Date(),
+            update_date: new Date()
         };
         console.log("articleInsert:", articleInsert)
         fetch("/api/article/", {
@@ -48,15 +65,17 @@ export default function ArticleEditor(props: IArticleEditorProps) {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-                success()
+                successHandler()
             });
     }
     const updateHandler = () => {
         const {article} = props;
         const updateArticle: IArticleUpdate = {
-            content: value,
+            content: content,
             title: title,
-            id: article?._id,
+            abstract: abstract,
+            cover_url: coverUrl,
+            id: article._id.toString(),
             update_date: new Date(),
         }
         fetch("/api/article/" + updateArticle.id, {
@@ -69,27 +88,31 @@ export default function ArticleEditor(props: IArticleEditorProps) {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-                success()
+                successHandler()
             });
     }
     const uploadHandler = isCreate ? createHandler : updateHandler;
 
     return (
         <>
-            {contextHolder}
             <div className="container">
-                <div>Article Id: {articleId}</div>
-                {/*<div>Article Title: {title}</div>*/}
+                <div className="text-white/90">Article Id: {articleId}</div>
                 <Input placeholder="Title" value={title} onChange={(e) => {
                     setTitle(e.target.value)
                 }}/>
+                <Input placeholder="Abstract" value={abstract} onChange={(e) => {
+                    setAbstract(e.target.value)
+                }}/>
+                <Input placeholder="Cover Url" value={coverUrl} onChange={(e) => {
+                    setCoverUrl(e.target.value)
+                }}/>
                 <MDEditor
-                    value={value}
+                    value={content}
                     onChange={(e) => {
-                        setValue(e ? e : "")
+                        setContent(e ? e : "")
                     }}
                 />
-                <Button type="primary" onClick={uploadHandler}>上传</Button>
+                <Button color="primary" onClick={uploadHandler}>Submit</Button>
             </div>
         </>
     );

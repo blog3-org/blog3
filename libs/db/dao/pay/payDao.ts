@@ -4,7 +4,7 @@ import {getAllDocuments, getDocumentByFilter} from "../../dbUtils";
 const collection_name = "pay";
 
 export interface IPay {
-    _id: ObjectId | undefined,
+    _id: ObjectId,
     receiver:string,    // 被支付地址
     payer:string,    // 粉丝地址
     amount:bigint,  // 支付金额

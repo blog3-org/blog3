@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import {Button} from 'antd';
+import {Button, Link} from "@nextui-org/react";
 import ArticleTable from "@/components/article/ArticleTable";
 import ArticleCardList from "@/components/article/ArticleCardList";
 
@@ -38,7 +38,7 @@ export default function Page() {
       // )
       return (
           <>
-              <Button type="primary" href="/article/edit">New Article</Button>
+              <Button as={Link} color="primary" href="/article/edit">New Article</Button>
               <ArticleCardList articles={articles}/>
               <ArticleTable articleList={articles}/>
           </>

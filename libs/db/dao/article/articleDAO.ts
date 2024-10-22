@@ -7,6 +7,8 @@ export interface IArticle {
     _id: ObjectId,
     author: string, // 钱包地址
     title: string,
+    abstract: string, // 摘要
+    cover_url: string, // 封面图片
     content: string,
     is_request_pay: boolean, // 是否要求付费后才能阅览
     create_date: Date,
@@ -24,7 +26,7 @@ export async function articleBriefGetAll(
 ) {
     const articleList = await getAllDocuments(client, collection_name, {_id: -1});
     if (articleList) {
-        return articleList.map((article:IArticle) => {
+        return articleList.map((article: IArticle) => {
             return getBriefArticle(article)
         })
     } else {
@@ -69,20 +71,6 @@ export async function articleBriefGetOneById(
 }
 
 function getBriefArticle(article: IArticle) {
-    let preview;
-    if (article.content.length > 50) {
-        preview = article.content.substring(0, 50) + " ......"
-    } else {
-        preview = article.content
-    }
-    const brief: IArticle = {
-        _id: article._id,
-        author: article.author,
-        content: preview,
-        create_date: article.create_date,
-        is_request_pay: article.is_request_pay,
-        title: article.title,
-        update_date: article.update_date,
-    }
-    return brief
+    article.content = "";
+    return article
 }
