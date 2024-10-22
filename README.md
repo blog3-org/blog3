@@ -50,6 +50,11 @@ Blog3 here to revolution the content platform
 
 ## Team Information
 
+| name         | role         | 
+| ----------- | ----------- |
+| Xin       | Full Stack Engineer |
+| Frank         | Product Manager | 
+
 
 ## Selected and Category & Bounty
 
@@ -61,6 +66,7 @@ Bounty:
 
 
 ## Planned Code Deliverables during the Hackathon
+
 
 Bonding Curve Design
 
