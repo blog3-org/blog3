@@ -82,47 +82,55 @@ Bounty:
 - Moonbeam
 
 
+## Selected Category & Bounty
+
+Category: Open Topic
+
+Bounties:
+- CESS Network
+- Moonbeam
+
 ## Planned and Completed Code Deliverables during the Hackathon
 
-### Basic Feature
-- Login and Logout
-  - [ ] Subwallet
-  - [ ] Talisman
-- Creator
+### Basic Features
+- Authentication
+  - [ ] Login and Logout via Subwallet
+  - [ ] Login and Logout via Talisman
+
+- Creator Features
   - [ ] Articles List
   - [ ] Followers List
   - [ ] Markdown Editor
   - [ ] IPFS Uploading
-  - [ ] Articles List
   - [ ] Local Draft & Save
-  - [ ] Set Article Mode
+  - [ ] Set Article Mode (Public/Subscriber-only)
   - [ ] Set Subscription Fees
-  - [ ] 
-- Reader
-  - [ ] Following list
+
+- Reader Features
+  - [ ] Following List
   - [ ] Article Rendering
-  - [ ] Subscription Juding
-  - [ ] Tipping
+  - [ ] Subscription Validation
+  - [ ] Tipping Functionality
 
 ### Tip Bonding Curve
 
-- Bonding Curve
-  - [ ] Curve Parameter Setting 
-  - [ ] Frontend
-  - [ ]   Progress
-  - [ ]   Share Price
+- Bonding Curve Implementation
+  - [ ] Curve Parameter Setting
+  - [ ] Frontend Development
+    - [ ] Progress Visualization
+    - [ ] Share Price Display
   - [ ] Shares Ledger
-- Tip Pool
-  - [ ] Assets Holding vis Multisig
+
+- Tip Pool Management
+  - [ ] Assets Holding via Multisig
   - [ ] Claim and Burn Mechanism
 
+### Ad Auction
 
-### Ads Auction
+- Ad Slot Management
+  - [ ] Frontend Display
 
-- Ads Slot
-  - [ ] Frontend Show
 - Auction Contract
-  - [ ] Auction Mechanism
-  - [ ] Revenue Transfer 
-
+  - [ ] Auction Mechanism Implementation
+  - [ ] Revenue Transfer System
 
