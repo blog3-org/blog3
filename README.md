@@ -1,5 +1,5 @@
 
-![Logo](./White.png)
+<img src="./White/png" width="50px">
 
 ## Blog3
 Blog3 is blog platfrom for Web3, that's the name come from. But Blog is not limited in blog, it could the next generation content sharing platform, which aims give back the ownership to both author and readers, covering blog, novel, and any other digital contents form. 
