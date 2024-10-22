@@ -35,13 +35,19 @@ Blog3 here to revolution the content platform
 
 ## Project Demonstration
 
-**Basic Features:** we would support article publishment, subscription, and tip these basic functions, which similar as other blog platform. There is no entry barrier for creators, for example, creator could set the articles to be public / subscribed, and only subscribers could read the certain articles. And users could also set the subscription fee, in monthly, quarterly or yearly, 
+### **Basic Features:**
+
+we would support article publishment, subscription, and tip these basic functions, which similar as other blog platform. There is no entry barrier for creators, for example, creator could set the articles to be public / subscribed, and only subscribers could read the certain articles. And users could also set the subscription fee, in monthly, quarterly or yearly, 
 
 
-**Tip Bonding Curve:** Tip bonding curve is the innovative mechanism first proposed by blog3. Under Tip Bonding Curve, each tip is regarded as investment into the articles, and 80% shares is open for tippers, and remaining 20% is kept for creator. Once Tip Bonding Curve is achieved, the shares are public, and the whole tips are shared by all tippers and creators. Following tips would also get into the tip pool. 
+
+### **Tip Bonding Curve:** 
+Tip bonding curve is the innovative mechanism first proposed by blog3. Under Tip Bonding Curve, each tip is regarded as investment into the articles, and 80% shares is open for tippers, and remaining 20% is kept for creator. Once Tip Bonding Curve is achieved, the shares are public, and the whole tips are shared by all tippers and creators. Following tips would also get into the tip pool. 
 
 
-**Ads Auctions:** Tip Bonding Curve is successfully achieved, the article unlock the ads articles, and everyone could bid the Ads slot daily, and auction for next day ends one hour of previous day. the highest bidder get the slot. The Ads revenure go into pool with tips. 
+### **Ads Auctions:** 
+
+Tip Bonding Curve is successfully achieved, the article unlock the ads articles, and everyone could bid the Ads slot daily, and auction for next day ends one hour of previous day. the highest bidder get the slot. The Ads revenure go into pool with tips. 
 
 
 
