@@ -63,7 +63,10 @@ When the Tip Bonding Curve threshold is successfully achieved, the article unloc
 
 
 ## Technical Architecture
-
+### Business Architecture
+![business_architecture.png](docs%2Fbusiness_architecture.png)
+### Technical Structure
+![structure.png](docs%2Fstructure.png)
 
 ## Demo
 
@@ -71,10 +74,10 @@ When the Tip Bonding Curve threshold is successfully achieved, the article unloc
 
 ## Team Information
 
-| Name         | Role         | 
-| ----------- | ----------- |
-| Xin       | Full Stack Engineer |
-| Frank         | Product Manager | 
+| Name         | Role         | Github                      |
+| ----------- | ----------- |-----------------------------|
+| Xin       | Full Stack Engineer | https://github.com/5255b64  |
+| Frank         | Product Manager | https://github.com/Junweif2 |
 
 
 ## Selected and Category & Bounty
@@ -90,28 +93,28 @@ Bounty:
 
 ### Basic Features
 - Authentication
-  - [ ] Login and Logout via Subwallet
+  - [x] Login and Logout via Subwallet
   - [ ] Login and Logout via Talisman
 
 - Creator Features
-  - [ ] Articles List
-  - [ ] Followers List
-  - [ ] Markdown Editor
+  - [x] Articles List
+  - [x] Followers List
+  - [x] Markdown Editor
   - [ ] IPFS Uploading
   - [ ] Local Draft & Save
   - [ ] Set Article Mode (Public/Subscriber-only)
-  - [ ] Set Subscription Fees
+  - [x] Set Subscription Fees
 
 - Reader Features
-  - [ ] Following List
-  - [ ] Article Rendering
-  - [ ] Subscription Validation
-  - [ ] Tipping Functionality
+  - [x] Following List
+  - [x] Article Rendering
+  - [x] Subscription Validation
+  - [x] Tipping Functionality
 
 ### Tip Bonding Curve
 
 - Bonding Curve Implementation
-  - [ ] Curve Parameter Setting
+  - [x] Curve Parameter Setting
   - [ ] Frontend Development
     - [ ] Progress Visualization
     - [ ] Share Price Display
