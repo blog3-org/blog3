@@ -29,7 +29,7 @@ Blog3 here to revolution the content platform
 
 1. **Give back the ownership**: we would give back the ownership to content creator, and 
 2. **Sharing the broad revenue**: we pre-set the bonding curve to make sure the sharing between both content creator and platform
-3. **Content**: we empower readers to share and tip content to make it more valuable and also earn revenue from it.
+3. **Contribution means ownership**: we regard readers' tip to content as the contribution, and 
 
 
 ## Project Demonstration
@@ -41,7 +41,13 @@ Blog3 here to revolution the content platform
 ## Team Information
 
 
-## Selected Bounty
+## Selected and Category & Bounty
+
+Category: Open Topic
+
+Bounty: 
+- CESS Network
+- Moonbeam
 
 
 ## Planned Code Deliverables during the Hackathon
