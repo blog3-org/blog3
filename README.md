@@ -70,35 +70,47 @@ Bounty:
 - Moonbeam
 
 
-## Planned Code Deliverables during the Hackathon
+## Planned and Completed Code Deliverables during the Hackathon
 
-Basic Feature
+### Basic Feature
+- Login and Logout
+  - [ ] Subwallet
+  - [ ] Talisman
 - Creator
-  - [ ] Markdown Editor
   - [ ] Articles List
-  - [ ] Draft
+  - [ ] Followers List
+  - [ ] Markdown Editor
+  - [ ] IPFS Uploading
+  - [ ] Articles List
+  - [ ] Local Draft & Save
+  - [ ] Set Article Mode
+  - [ ] Set Subscription Fees
+  - [ ] 
 - Reader
-- [ ] Following list
-- [ ] Article Rendering
-- [ ] Tipping
-- [ ] Tips
+  - [ ] Following list
+  - [ ] Article Rendering
+  - [ ] Subscription Juding
+  - [ ] Tipping
 
-- Login and Logout: Subwallet and Talisman login
-- Author
--   Markdown 
--   Upload to IPFS
--   Image support: Support Ctrl + V to paste images, upload to image hosting
--   Save function: Save offline, support continuing editing after closing and reopening
--   My article list: Display titles and writing times of my articles, click to jump to article links
--   My draft list: Display titles and writing times of my drafts, click to jump to draft links, continue editing
--   My followers list: Display all addresses following me and payment amounts
--   Set reading permissions: Set reading threshold to pay 1 DOT / 5 DOT / custom input; set free reading portion
--   Set and modify payment address
-- Reader
--   My following list: View users I follow
--   Read a markdown article: Information includes article author and time, can follow the author
--   Judge reading permissions: Can only read free portion, remaining content requires payment, display payment button
--   Make payment: According to preset amount, invoke wallet for payment, after on-chain, refresh page to read
+### Tip Bonding Curve
+
+- Bonding Curve
+  - [ ] Curve Parameter Setting 
+  - [ ] Frontend
+  - [ ]   Progress
+  - [ ]   Share Price
+  - [ ] Shares Ledger
+- Tip Pool
+  - [ ] Assets Holding vis Multisig
+  - [ ] Claim and Burn Mechanism
 
 
-## Project Completed During the Hackathon
+### Ads Auction
+
+- Ads Slot
+  - [ ] Frontend Show
+- Auction Contract
+  - [ ] Auction Mechanism
+  - [ ] Revenue Transfer 
+
+
