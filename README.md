@@ -67,7 +67,7 @@ When the Tip Bonding Curve threshold is successfully achieved, the article unloc
 
 ## Demo
 
-[Presentation](https://docs.google.com/presentation/d/1iUXXtaeWJx--H7DTvjyJET4Z_mN4jp7z/edit?usp=sharing&ouid=108399294800638300424&rtpof=true&sd=true)
+- [Presentation](https://docs.google.com/presentation/d/1iUXXtaeWJx--H7DTvjyJET4Z_mN4jp7z/edit?usp=sharing&ouid=108399294800638300424&rtpof=true&sd=true)
 
 ## Team Information
 
