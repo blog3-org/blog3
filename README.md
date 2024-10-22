@@ -2,52 +2,64 @@
 <img src="./White.png" width="50px">
 
 ## Blog3
-Blog3 is blog platfrom for Web3, that's the name come from. But Blog is not limited in blog, it could the next generation content sharing platform, which aims give back the ownership to both author and readers, covering blog, novel, and any other digital contents form. 
 
-Since 2024/09/01
+Blog3 is a Web3-inspired blog platform, as reflected in its name. However, Blog3 is not limited to just blogs; it aims to be the next generation content sharing platform, giving ownership back to both authors and readers. It covers blogs, novels, and other digital content forms.
+
+Launched on 2024/09/01
 
 ## Background
 
-In the current market, there are typical traditional blog platform e.g Medium and crypto blog platform e.g. Mirror. 
+In the current market, there are typical traditional blog platforms like Medium and crypto blog platforms such as Mirror.
 
-There are fierce competition among traditional blog platform, and some content creators have to migrate or operate differnet platform. Because the traffic change quickly among different platform.
+Fierce competition exists among traditional blog platforms, forcing some content creators to migrate or operate across different platforms due to rapidly changing traffic patterns.
 
-For crypto blog platform, it's still target to a small group of user, which limit the user base. And it usually have limit monetization way for content creators.
+Crypto blog platforms typically target a small group of users, limiting their user base. They also often have limited monetization options for content creators.
 
-## Problem to be Solved
+## Problems to be Solved
 
-As mentioned above, there are lots of issues need to be resolved. 
+As mentioned above, there are several issues that need to be addressed:
 
-1. Centralized platform control and host the content itself, literaly, creators can't control the asset they should own
-2. Currently lots of centralized content platform get most of the ads revenue, and distribute only part of them to creators
-3. Readers usually the consumer in general platform, they can't get paid with attention and sharing contribution
-
-
+1. Centralized platforms control and host the content itself; literally, creators can't control the assets they should own.
+2. Currently, many centralized content platforms receive most of the ad revenue, distributing only a portion to creators.
+3. Readers are usually just consumers on general platforms, unable to be compensated for their attention and sharing contributions.
 
 ## Project Overview
 
-Blog3 here to revolution the content platform
+Blog3 is here to revolutionize content platforms:
 
-1. **Give back the ownership**: we would give back the ownership to content creator, and under subsription mode, only creator could subsribed readers and creator could see the content. Management of the storage is also under creators.
-2. **Sharing the broad revenue**: we pre-set the bonding curve to make sure the sharing percentage between both content creator and platform is settled, and ensure creator could get most of the reveune they deserved. 
-3. **Contribution means ownership**: we regard readers' tip to content as the contribution, and let readers share the revenue from the content as well once the tip hit the bonding curve. 
+1. **Giving back ownership**: We will return ownership to content creators. Under a subscription model, only creators and subscribed readers can see the content. Storage management is also under the creators' control.
+2. **Sharing broader revenue**: We have pre-set a bonding curve to ensure a fair revenue-sharing percentage between content creators and the platform, guaranteeing creators receive most of the revenue they deserve.
+3. **Contribution means ownership**: We regard readers' tips to content as contributions, allowing readers to share in the revenue from the content once their tips reach a certain point on the bonding curve.
 
 
 ## Project Demonstration
 
-### **Basic Features**
+### Basic Features
 
-we would support article publishment, subscription, and tip these basic functions, which similar as other blog platform. There is no entry barrier for creators, for example, creator could set the articles to be public / subscribed, and only subscribers could read the certain articles. And users could also set the subscription fee, in monthly, quarterly or yearly, 
+We support fundamental functions similar to other blog platforms, including article publication, subscription, and tipping. There are no entry barriers for creators. For example:
 
+- Creators can set articles to be public or subscriber-only.
+- Only subscribers can read certain articles.
+- Users can set subscription fees on a monthly, quarterly, or yearly basis.
 
+### Tip Bonding Curve
 
-### **Tip Bonding Curve** 
-Tip bonding curve is the innovative mechanism first proposed by blog3. Under Tip Bonding Curve, each tip is regarded as investment into the articles, and 80% shares is open for tippers, and remaining 20% is kept for creator. Once Tip Bonding Curve is achieved, the shares are public, and the whole tips are shared by all tippers and creators. Following tips would also get into the tip pool. 
+The Tip Bonding Curve is an innovative mechanism first proposed by Blog3. Under this system:
 
+- Each tip is regarded as an investment in the article.
+- 80% of shares are open for tippers, while the remaining 20% is kept for the creator.
+- Once the Tip Bonding Curve threshold is achieved, the shares become public.
+- All tips are shared among tippers and creators.
+- Subsequent tips also enter the tip pool.
 
-### **Ads Auctions** 
+### Ad Auctions
 
-Tip Bonding Curve is successfully achieved, the article unlock the ads articles, and everyone could bid the Ads slot daily, and auction for next day ends one hour of previous day. the highest bidder get the slot. The Ads revenure go into pool with tips. 
+When the Tip Bonding Curve threshold is successfully achieved, the article unlocks ad slots. The ad auction process works as follows:
+
+- Anyone can bid for ad slots daily.
+- The auction for the next day ends one hour before the previous day closes.
+- The highest bidder secures the slot.
+- Ad revenue is added to the pool along with tips.
 
 
 ## Technical Architecture
