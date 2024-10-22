@@ -81,7 +81,6 @@ export async function UPDATE(
 /* 获取article方法 */
 export async function GET(request: NextRequest, {params}: { params: { id: string } }) {
     const articleId = params.id
-
     let client;
     try {
         client = await connectDatabase();
@@ -95,8 +94,8 @@ export async function GET(request: NextRequest, {params}: { params: { id: string
     }
 
     // 鉴权&&参数校验
-    console.log("request:", request)
-    console.log("cookie:", request.cookies)
+    // console.log("request:", request)
+    // console.log("cookie:", request.cookies)
 
     // const req:IRequestGet = await request.json();
     // const {jwtToken} = req;

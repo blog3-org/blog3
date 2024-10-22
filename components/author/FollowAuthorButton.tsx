@@ -54,16 +54,6 @@ export default function FollowAuthorButton(props: IArticleEditorProps) {
             });
     }
     return (
-        <Popover placement="right">
-            <PopoverTrigger>
-                <Button color="primary" isDisabled={isDisabled} onPress={onClick}>Follow</Button>
-            </PopoverTrigger>
-            <PopoverContent>
-                <div className="px-1 py-2">
-                    <div className="text-small font-bold">Popover Content</div>
-                    <div className="text-tiny">This is the popover content</div>
-                </div>
-            </PopoverContent>
-        </Popover>
+        <Button color="primary" isDisabled={isDisabled} onPress={onClick}>Follow</Button>
     );
 }

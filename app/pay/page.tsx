@@ -3,6 +3,7 @@
 import {useEffect, useState} from "react";
 import {IPay} from "@/libs/db/dao/pay/payDao";
 import PayTable from "@/components/pay/PayTable";
+import {Spinner} from "@nextui-org/spinner";
 
 export default function Page() {
     const [payList, setPayList] = useState<IPay[]>([]);
@@ -23,7 +24,7 @@ export default function Page() {
 
     return (
         <>
-            {isLoading?<p>Loading</p>:<PayTable payList={payList}/>}
+            {isLoading?<p><Spinner label="Loading..."/></p>:<PayTable payList={payList}/>}
         </>
     )
 }

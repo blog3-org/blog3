@@ -6,6 +6,7 @@ import {Card, CardHeader, CardFooter, Image} from "@nextui-org/react";
 import {default_avatar_url, IUser} from "@/libs/db/dao/user/userDao";
 import {useEffect, useState} from "react";
 import UserCard from "@/components/user/UserCard";
+import UserCardHover from "@/components/user/UserCardHover";
 
 interface ArticleCardProps {
     article: IArticle,
@@ -26,18 +27,18 @@ export default function ArticleCard(props:ArticleCardProps) {
     });
     const imgUrl = cover_url?cover_url:defaultImgUrl;
 
-    // const handler = () => {
-    //     // 获取用户信息
-    //     fetch("/api/user/" + author)
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             if (data.data) {
-    //                 setUser(data.data);
-    //             }
-    //         });
-    // }
-    //
-    // useEffect(() => {handler()}, [])
+    const handler = () => {
+        // 获取用户信息
+        fetch("/api/user/" + author)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.data) {
+                    setUser(data.data);
+                }
+            });
+    }
+
+    useEffect(() => {handler()}, [])
 
     return (
         <Link href={"/article/view/"+props.article._id}>

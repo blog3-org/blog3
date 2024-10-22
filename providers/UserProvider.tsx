@@ -33,55 +33,57 @@ export function UserProvider({children}: {
         name: "undefined",
         update_date: new Date(),
     })
+    // console.log("user:", user)
 
-    // const handler = () => {
-    //     if (window) {
-    //         // todo 需要校验connectInfo相关的钱包签名
-    //         const address = localStorage.getItem('ConnectInfo');
-    //         if (address) {
-    //             // 获取用户信息
-    //             fetch("/api/user/" + address)
-    //                 .then((response) => response.json())
-    //                 .then((data) => {
-    //                     console.log("user api result:", data)
-    //                     if (data.data) {
-    //                         setUser(data.data);
-    //                         setIsConnect(true);
-    //                         setAddress(address);
-    //                     } else {
-    //                         const userInsert: IUserInsert = {
-    //                             address: address,
-    //                             avatar_url: default_avatar_url,
-    //                             create_date: new Date(),
-    //                             description: "no description",
-    //                             name: shortAddress(address as `0x${string}`),
-    //                             update_date: new Date(),
-    //                         };
-    //                         fetch("/api/user/", {
-    //                             method: "POST",
-    //                             body: JSON.stringify(userInsert),
-    //                             headers: {
-    //                                 "Content-Type": "application/json",
-    //                             },
-    //                         })
-    //                             .then((response) => response.json())
-    //                             .then((data) => {
-    //                                 console.log("set user success:", data)
-    //                                 if (data.data) {
-    //                                     setUser(data.data);
-    //                                     setIsConnect(true);
-    //                                     setAddress(address);
-    //                                 }
-    //                             });
-    //                     }
-    //                 });
-    //         }
-    //     }
-    // }
-    //
-    // useEffect(() => {
-    //     handler()
-    // }, []);
+
+    const handler = () => {
+        if (window) {
+            // todo 需要校验connectInfo相关的钱包签名
+            const address = localStorage.getItem('ConnectInfo');
+            if (address) {
+                // 获取用户信息
+                fetch("/api/user/" + address)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        // console.log("user api result:", data)
+                        if (data.data) {
+                            setUser(data.data);
+                            setIsConnect(true);
+                            setAddress(address);
+                        } else {
+                            const userInsert: IUserInsert = {
+                                address: address,
+                                avatar_url: default_avatar_url,
+                                create_date: new Date(),
+                                description: "no description",
+                                name: shortAddress(address as `0x${string}`),
+                                update_date: new Date(),
+                            };
+                            fetch("/api/user/", {
+                                method: "POST",
+                                body: JSON.stringify(userInsert),
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                            })
+                                .then((response) => response.json())
+                                .then((data) => {
+                                    console.log("set user success:", data)
+                                    if (data.data) {
+                                        setUser(data.data);
+                                        setIsConnect(true);
+                                        setAddress(address);
+                                    }
+                                });
+                        }
+                    });
+            }
+        }
+    }
+
+    useEffect(() => {
+        handler()
+    }, []);
 
     const value: ISignProvider = {
         isConnect: isConnect,

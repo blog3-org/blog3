@@ -62,8 +62,8 @@ export default function ArticleTable(props: ArticleTableProps) {
             case "action":
                 return (
                     <div className="relative flex items-center gap-2">
-                        <Button as={Link} href={"/article/view/" + id}>浏览</Button>
-                        <Button as={Link} href={"/article/edit/" + id}>编辑</Button>
+                        <Button as={Link} href={"/article/view/" + id}>View</Button>
+                        <Button as={Link} href={"/article/edit/" + id}>Edit</Button>
                     </div>
                 );
             default:
